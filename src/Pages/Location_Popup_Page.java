@@ -15,7 +15,7 @@ public class Location_Popup_Page extends BasicPage {
 	}
 
 	public WebElement getSelectLocation() {
-		return driver.findElement(By.linkText("Select Location"));
+		return driver.findElement(By.className("location-selector"));
 	}
 
 	public WebElement getCloseElement() {
@@ -27,7 +27,7 @@ public class Location_Popup_Page extends BasicPage {
 	}
 
 	public WebElement getLocationItem(String locationName) {
-		return driver.findElement(By.xpath("//li/a[contains(text(), '"+locationName+"')]/.."));
+		return driver.findElement(By.xpath("//li/a[contains(text(), '" + locationName + "')]/.."));
 	}
 
 	public WebElement getLocationInput() {
@@ -43,14 +43,15 @@ public class Location_Popup_Page extends BasicPage {
 	}
 
 	public void setLocation(String locationName) {
+		this.getSelectLocation().click();
 		this.getKeyword().click();
 		String value = this.getLocationItem(locationName).getAttribute("data-value");
 		js.executeScript("arguments[0].value=arguments[1];", this.getLocationInput(), value);
-		//waiter.until(ExpectedConditions.elementToBeClickable(this.getSubmit()));
+		// waiter.until(ExpectedConditions.elementToBeClickable(this.getSubmit()));
 		js.executeScript("arguments[0].click();", this.getSubmit());
 
 	}
-	//*[@id="location-popup"]/div/div/div/div/a
+
 	public void closePopupLocation() {
 		this.getCloseElement().click();
 	}

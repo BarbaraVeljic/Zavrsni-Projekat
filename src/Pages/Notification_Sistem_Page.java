@@ -13,16 +13,21 @@ public class Notification_Sistem_Page extends BasicPage {
 		super(driver, waiter, js);
 		// TODO Auto-generated constructor stub
 	}
-public WebElement getMessageElement() {
-	return driver.findElement(By.xpath("//*[contains(@class, 'alert--success') or contains(@class, 'alert--danger')][contains(@style,'display: block')]"));
-}
-public String getMessageText() {
-	return this.getMessageElement().getText();
-}
-public void notificationDisappear() {
-	//čeka se da element //*[contains(@class, 'system_message')]
-	//za atribut style dobije vrednost  "display: none;"
-waiter.until(ExpectedConditions.attributeContains(By.xpath("//*[contains(@class, 'system_message')]"), "style", "display: none;"));
-}
+
+	public WebElement getMessageElement() {
+		return driver.findElement(By.xpath("//*[contains(@class, 'alert--success')"
+				+ " or contains(@class, 'alert--danger')][contains(@style,'display: block')]"));
+	}
+
+	public String getMessageText() {
+		return this.getMessageElement().getText();
+	}
+
+	public void notificationDisappear() {
+		// čeka se da element //*[contains(@class, 'system_message')]
+		// za atribut style dobije vrednost "display: none;"
+		waiter.until(ExpectedConditions.attributeContains(By.xpath("//*[contains(@class," +" 'system_message')]"),
+				"style", "display: none;"));
+	}
 
 }

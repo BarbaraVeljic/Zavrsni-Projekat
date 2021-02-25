@@ -15,7 +15,7 @@ public class Profile_Page extends BasicPage {
 	}
 
 	public WebElement getPersonalInfo() {
-		return driver.findElement(By.linkText("Ronald Williams"));
+		return this.driver.findElement(By.className("after-arrow"));
 	}
 
 	public WebElement getMyAccount() {
@@ -59,7 +59,7 @@ public class Profile_Page extends BasicPage {
 	}
 
 	public Select getCity() {
-		WebElement city = driver.findElement(By.id("user_state_id"));
+		WebElement city = driver.findElement(By.id("user_city"));
 		Select cty = new Select(city);
 		return cty;
 	}
@@ -97,8 +97,23 @@ public class Profile_Page extends BasicPage {
 		js.executeScript("arguments[0].click();", remove);
 	}
 
-	public void updateInfo(String name,String lastName,String adress,String zip,String phone,String coutry,String state,String city) {
-this.getName().sendKeys(name);
-this.getLastName().sendKeys(lastName);
-this.
+	public void updateInfo(String name, String lastName, String address, String zip, String phone, String country,
+			String state, String city) throws InterruptedException {
+		this.getName().clear();
+		this.getName().sendKeys(name);
+		this.getLastName().clear();
+		this.getLastName().sendKeys(lastName);
+		this.getAddress().clear();
+		this.getAddress().sendKeys(address);
+		this.getZip().clear();
+		this.getZip().sendKeys(zip);
+		this.getPhoneNo().clear();
+		this.getPhoneNo().sendKeys(phone);
+		this.getCountry().selectByVisibleText(country);
+		Thread.sleep(3000);
+		this.getState().selectByVisibleText(state);
+		Thread.sleep(3000);
+		this.getCity().selectByVisibleText(city);
+		this.getSaveInfo().click();
 	}
+}
