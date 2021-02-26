@@ -16,7 +16,7 @@ import org.testng.asserts.SoftAssert;
 
 public class Search_Test extends BasicTest {
 	@Test
-	public void searchResults() throws IOException {
+	public void searchResults() throws IOException, InterruptedException {
 		driver.navigate().to(this.baseUrl + "/meals");
 		locationPopupPage.closePopupLocation();
 		locationPopupPage.setLocation("City Center - Albany");
@@ -30,21 +30,24 @@ public class Search_Test extends BasicTest {
 			XSSFRow row = sheet.getRow(i);
 			String location = row.getCell(0).getStringCellValue();
 			String url = row.getCell(1).getStringCellValue();
-			String quantity = format.formatCellValue(row.getCell(2));
+			int resultsNumber = (int)row.getCell(2).getNumericCellValue();
+			//String quantity = format.formatCellValue(row.getCell(2));
 			driver.navigate().to(url);
 			locationPopupPage.setLocation(location);
-			searchResultsPage.getAllResults();
-			softAssert.assertEquals(searchResultsPage.getNumberOfResults(),quantity,
+			Thread.sleep(3000);
+			softAssert.assertEquals(searchResultsPage.getNumberOfResults(),resultsNumber,
 					"[ERROR] Unexpected Add To Cart Message");
-			for (int x = 3; x < row.getLastCellNum(); x++) {
+			for (int x = 3; x < searchResultsPage.getAllResults().size()+3; x++) {
 				String results = row.getCell(x).getStringCellValue();
-				softAssert.assertTrue(searchResultsPage.getResultsNames().contains(results),
+				softAssert.assertTrue(searchResultsPage.getResultsNames().get(x-3).
+						contains(results),
 						"[ERROR] Unexpected The Results are not the same Message");
+				Thread.sleep(3000);
 			}
 		}
 		wb.close();
 		fis.close();
-        softAssert.assertAll();
+		softAssert.assertAll();
 	}
 
 }
