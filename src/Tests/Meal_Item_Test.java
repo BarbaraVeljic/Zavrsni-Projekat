@@ -35,7 +35,8 @@ public class Meal_Item_Test extends BasicTest {
 		locationPopupPage.closePopupLocation();
 		Thread.sleep(5000);
 		mealPage.addMealToFavourite();
-		Assert.assertTrue(notificationSistemPage.getMessageText(), "Please login first!",
+		Assert.assertTrue(notificationSistemPage.getMessageText().
+				contains("Please login first!"),
 				"[ERROR] Unexpected Add To Favorite Message");
 		driver.navigate().to(this.baseUrl + "/guest-user/login-form");
 		loginPage.loginCustomer(this.ussername, this.password);
