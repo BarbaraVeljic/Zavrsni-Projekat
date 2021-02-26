@@ -1,0 +1,10 @@
+
+<suite name="Testing Yo-meals application">
+    <test name="Practice Test">
+         <classes>
+             <class name="Tests.Meal_Item_Test"/>
+             <class name="Tests.Profile_Test"/>
+             <class name="Tests.Search_Test"></class>
+          </classes>
+     </test> <!-- Test -->
+</suite> <!-- Suite -->

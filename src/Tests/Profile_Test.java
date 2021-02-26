@@ -13,17 +13,17 @@ public class Profile_Test extends BasicTest {
 		locationPopupPage.closePopupLocation();
 		loginPage.getLoginBtn().click();
 		loginPage.loginCustomer(this.ussername, this.password);
-		Assert.assertEquals(notificationSistemPage.getMessageText(), 
-				"Login Successfull", "[ERROR] Unexpected Login message");
+		Assert.assertTrue(notificationSistemPage.getMessageText().contains( 
+				"Login Successfull"), "[ERROR] Unexpected Login message");
 
 		driver.navigate().to(this.baseUrl + "/member/profile");
 		this.profilePage.updateInfo("Barbara", "Veljic", "Krusevac", 
 				"37000", "00000000", "United States", "Florida","Bellview");
-		Assert.assertEquals(notificationSistemPage.getMessageText(),
-				"Setup Successful", "[ERROR] Unexpected Setup message");
+		Assert.assertTrue(notificationSistemPage.getMessageText().contains(
+				"Setup Successful"), "[ERROR] Unexpected Setup message");
 		authPage.logout();
-		Assert.assertEquals(notificationSistemPage.getMessageText(), 
-				"Logout Successfull!", "[ERROR] Unexpected Logout message");
+		Assert.assertTrue(notificationSistemPage.getMessageText().contains(
+				"Logout Successfull!"), "[ERROR] Unexpected Logout message");
 	}
 
 	@Test(priority=10)
@@ -31,22 +31,22 @@ public class Profile_Test extends BasicTest {
 		driver.navigate().to(this.baseUrl + "/guest-user/login-form");
 		locationPopupPage.closePopupLocation();
 		loginPage.loginCustomer(this.ussername, this.password);
-		Assert.assertEquals(notificationSistemPage.getMessageText(),
-				"Login Successfull", "[ERROR] Unexpected Login message");
+		Assert.assertTrue(notificationSistemPage.getMessageText().contains(
+				"Login Successfull"), "[ERROR] Unexpected Login message");
 		driver.navigate().to(this.baseUrl + "/member/profile");
 		String imgPath = new File("img/Image.jpg").getCanonicalPath();
 		profilePage.uploadPhoto(imgPath);
-		Assert.assertEquals(notificationSistemPage.getMessageText(),
-				"Profile Image Uploaded Successfully", 
+		Assert.assertTrue(notificationSistemPage.getMessageText().contains(
+				"Profile Image Uploaded Successfully"), 
 				"[ERROR] Unexpected Profile Image Uploaded message");
 		notificationSistemPage.notificationDisappear();
 		profilePage.removePhoto();
-		Assert.assertEquals(notificationSistemPage.getMessageText(),
-				"Profile Image Deleted Successfully",
+		Assert.assertTrue(notificationSistemPage.getMessageText().contains(
+				"Profile Image Deleted Successfully"),
 				"[ERROR] Unexpected Profile Image Deleted message");
 		notificationSistemPage.notificationDisappear();
 		authPage.logout();
-		Assert.assertEquals(notificationSistemPage.getMessageText(), 
-				"Logout Successfull!", "[ERROR] Unexpected Logout message");
+		Assert.assertTrue(notificationSistemPage.getMessageText().contains(
+				"Logout Successfull!"), "[ERROR] Unexpected Logout message");
 	}
 }

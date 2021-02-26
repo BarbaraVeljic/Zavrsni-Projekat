@@ -24,7 +24,8 @@ public class Meal_Item_Test extends BasicTest {
 		notificationSistemPage.notificationDisappear();
 		locationPopupPage.setLocation("City Center - Albany");
 		mealPage.addMeal("2");
-		Assert.assertEquals(notificationSistemPage.getMessageText(), "Meal Added To Cart",
+		Assert.assertTrue(notificationSistemPage.getMessageText().contains(
+				"Meal Added To Cart"),
 				"[ERROR] Unexpected Add To Cart Message");
 	}
 
@@ -34,7 +35,7 @@ public class Meal_Item_Test extends BasicTest {
 		locationPopupPage.closePopupLocation();
 		Thread.sleep(5000);
 		mealPage.addMealToFavourite();
-		Assert.assertEquals(notificationSistemPage.getMessageText(), "Please login first!",
+		Assert.assertTrue(notificationSistemPage.getMessageText(), "Please login first!",
 				"[ERROR] Unexpected Add To Favorite Message");
 		driver.navigate().to(this.baseUrl + "/guest-user/login-form");
 		loginPage.loginCustomer(this.ussername, this.password);
@@ -63,13 +64,15 @@ public class Meal_Item_Test extends BasicTest {
 			driver.navigate().to(url);
 			mealPage.addMeal(quantity);
 			SoftAssert softAssert = new SoftAssert();
-			softAssert.assertEquals(notificationSistemPage.getMessageText(), "Meal Added To Cart",
+			softAssert.assertTrue(notificationSistemPage.getMessageText().contains(
+					"Meal Added To Cart"),
 					"[ERROR] Unexpected Add To Cart Message");
 			wb.close();
 			fis.close();
 		}
 		cartSummaryPage.clearAll();
-		Assert.assertEquals(notificationSistemPage.getMessageText(), "All meals removed from Cart successfully",
+		Assert.assertTrue(notificationSistemPage.getMessageText().contains(
+				"All meals removed from Cart successfully"),
 				"[ERROR] Unexpected Add To Favorite Message");
 
 	}

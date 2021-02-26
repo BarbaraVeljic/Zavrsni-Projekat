@@ -34,7 +34,7 @@ public class Search_Test extends BasicTest {
 			driver.navigate().to(url);
 			locationPopupPage.setLocation(location);
 			searchResultsPage.getAllResults();
-			softAssert.assertEquals(searchResultsPage.getNumberOfResults(), quantity,
+			softAssert.assertEquals(searchResultsPage.getNumberOfResults(),quantity,
 					"[ERROR] Unexpected Add To Cart Message");
 			for (int x = 3; x < row.getLastCellNum(); x++) {
 				String results = row.getCell(x).getStringCellValue();
@@ -42,7 +42,9 @@ public class Search_Test extends BasicTest {
 						"[ERROR] Unexpected The Results are not the same Message");
 			}
 		}
-
+		wb.close();
+		fis.close();
+        softAssert.assertAll();
 	}
-	
+
 }
